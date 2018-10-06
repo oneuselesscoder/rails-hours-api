@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe 'Users API', type: :request do
   # initialize test data 
   let!(:users) { create_list(:user, 10) }
@@ -10,7 +12,6 @@ RSpec.describe 'Users API', type: :request do
 
     it 'returns users' do
       # Note `json` is a custom helper to parse JSON responses
-      puts json
       expect(json).not_to be_empty
       expect(json.size).to eq(10)
     end
