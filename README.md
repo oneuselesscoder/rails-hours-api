@@ -1,24 +1,20 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* API backend to hold time availability
 
-Things you may want to cover:
+* To run
 
-* Ruby version
+  * rails s
 
-* System dependencies
+* Basic endpoints examples
+  * http POST :3000/users user_name=user
 
-* Configuration
+  * http POST :3000/users/1/hours starts='2018-10-07 10:31 am' ends='2018-10-07 02:00 pm'
 
-* Database creation
+  * http POST :3000/users/1/hours starts='2018-10-06 02:31:21.598312' ends='2018-10-06 22:30:22.598312'
 
-* Database initialization
+    Or in heroku
 
-* How to run the test suite
+  * http POST https://uselesscoder.herokuapp.com/users user_name=user
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
-
-* ...
