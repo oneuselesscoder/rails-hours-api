@@ -64,7 +64,8 @@ RSpec.describe 'Hours API' do
 
   # Test suite for PUT /users/:user_id/hours
   describe 'POST /users/:user_id/hours' do
-    let(:valid_attributes) { { starts: Date.today, ends: Date.today } }
+    timer = (Date.current+2).to_datetime
+    let(:valid_attributes) { { starts: timer, ends: timer } }
 
     context 'when request attributes are valid' do
       before { post "/users/#{user_id}/hours", params: valid_attributes }
@@ -89,7 +90,7 @@ RSpec.describe 'Hours API' do
 
   # Test suite for PUT /users/:user_id/hours/:id
   describe 'PUT /users/:user_id/hours/:id' do
-    timer = Date.today.to_datetime
+    timer = (Date.current+2).to_datetime
     let(:valid_attributes) { { starts: timer, ends: timer } }
 
     before { put "/users/#{user_id}/hours/#{id}", params: valid_attributes }

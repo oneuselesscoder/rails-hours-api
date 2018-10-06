@@ -14,12 +14,14 @@ class HoursController < ApplicationController
 
   # POST /users/:user_id/hours
   def create
+    return invalid_data(params) if params_present? && invalid_data? 
     @user.hours.create!(hour_params)
     json_response(@user, :created)
   end
 
   # PUT /users/:user_id/hours/:id
   def update
+    return invalid_data(params) if params_present? && invalid_data?
     @hour.update(hour_params)
     head :no_content
   end
@@ -31,6 +33,18 @@ class HoursController < ApplicationController
   end
 
   private
+
+  def invalid_data?
+    @user.unavailable?(params[:starts],params[:ends]) || invalid_range?
+  end
+
+  def invalid_range?
+    DateTime.parse(params[:starts]) > DateTime.parse(params[:ends])
+  end
+
+  def params_present?
+    params.has_key?(:starts) && params.has_key?(:ends)
+  end
 
   def hour_params
     params.permit(:starts, :ends)
