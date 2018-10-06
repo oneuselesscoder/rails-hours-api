@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
   validates_presence_of :user_name
 
-  def unavailable?
-    hours.where("? BETWEEN starts AND ends", Time.zone.now).any?
+  def available?(start_time, end_time)
+    hours.any?
   end
 end

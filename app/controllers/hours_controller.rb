@@ -33,7 +33,7 @@ class HoursController < ApplicationController
   private
 
   def hour_params
-    params.permit(:starts, :ends, :valid_date)
+    params.permit(:starts, :ends)
   end
 
   def set_user

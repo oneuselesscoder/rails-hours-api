@@ -64,7 +64,7 @@ RSpec.describe 'Hours API' do
 
   # Test suite for PUT /users/:user_id/hours
   describe 'POST /users/:user_id/hours' do
-    let(:valid_attributes) { { starts: Time.current, ends: Time.current, valid_date: Date.today.to_datetime } }
+    let(:valid_attributes) { { starts: Date.today, ends: Date.today } }
 
     context 'when request attributes are valid' do
       before { post "/users/#{user_id}/hours", params: valid_attributes }
@@ -82,15 +82,15 @@ RSpec.describe 'Hours API' do
       end
 
       it 'returns a failure message' do
-        expect(response.body).to match(/Validation failed: Starts can't be blank, Ends can't be blank, Valid date can't be blank/)
+        expect(response.body).to match(/Validation failed: Starts can't be blank, Ends can't be blank/)
       end
     end
   end
 
   # Test suite for PUT /users/:user_id/hours/:id
   describe 'PUT /users/:user_id/hours/:id' do
-    timer = Time.zone.now
-    let(:valid_attributes) { { starts: timer, ends: timer, valid_date: Date.today } }
+    timer = Date.today.to_datetime
+    let(:valid_attributes) { { starts: timer, ends: timer } }
 
     before { put "/users/#{user_id}/hours/#{id}", params: valid_attributes }
 
@@ -101,7 +101,7 @@ RSpec.describe 'Hours API' do
 
       it 'updates the hour' do
         updated_hour = Hour.find(id)
-        expect(updated_hour.starts.strftime("%I:%M%p")).to match(timer.strftime("%I:%M%p"))
+        expect(updated_hour.starts).to match(timer)
       end
     end
 

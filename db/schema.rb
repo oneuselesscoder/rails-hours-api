@@ -13,9 +13,8 @@
 ActiveRecord::Schema.define(version: 20181006002433) do
 
   create_table "hours", force: :cascade do |t|
-    t.time "starts"
-    t.time "ends"
-    t.datetime "valid_date"
+    t.datetime "starts"
+    t.datetime "ends"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
