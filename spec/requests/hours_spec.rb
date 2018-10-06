@@ -66,12 +66,27 @@ RSpec.describe 'Hours API' do
   describe 'POST /users/:user_id/hours' do
     timer = (Date.current+2).to_datetime
     let(:valid_attributes) { { starts: timer, ends: timer } }
+    let(:mixed_attributes) { { starts: "2018-10-07 10:31 am", ends: "2018-10-07 02:00 pm" } }
 
     context 'when request attributes are valid' do
       before { post "/users/#{user_id}/hours", params: valid_attributes }
 
       it 'returns status code 201' do
         expect(response).to have_http_status(201)
+      end
+    end
+
+    context 'when request has 12h time valid attributes' do
+      before { post "/users/#{user_id}/hours", params: mixed_attributes }
+
+      it 'returns status code 201' do
+        expect(response).to have_http_status(201)
+      end
+
+      it 'returns stores correct time' do
+        res = JSON.parse(response.body)
+        expect(res["starts"]).to match("2018-10-07T10:31:00.000Z")
+        expect(res["ends"]).to match("2018-10-07T14:00:00.000Z")
       end
     end
 

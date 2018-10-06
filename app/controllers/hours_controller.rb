@@ -15,8 +15,8 @@ class HoursController < ApplicationController
   # POST /users/:user_id/hours
   def create
     return invalid_data(params) if params_present? && invalid_data? 
-    @user.hours.create!(hour_params)
-    json_response(@user, :created)
+    hour = @user.hours.create!(hour_params)
+    json_response(hour, :created)
   end
 
   # PUT /users/:user_id/hours/:id
